@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SA Lab1 Dependency Analysis and Dependency Graphs &#8212; englishpal 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sa-lab1-dependency-analysis-and-dependency-graphs">
+<h1>SA Lab1  Dependency Analysis and Dependency Graphs<a class="headerlink" href="#sa-lab1-dependency-analysis-and-dependency-graphs" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>201931990124 刘长优</p>
+<p>201931990122 黄凯峰</p>
+<p>201931990130 王晨航</p>
+<p>201931990127 骆纪元</p>
+</div></blockquote>
+<section id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<p>分析三个项目各自的内部依赖，利用工具绘制模块、类/函数依赖关系图，通过比较，加深对软件体系结构的理解。</p>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>EnglishPal是一款面向希望提升自身英语阅读能力的用户，提供英语文章学习服务的轻量级在线网站。</p>
+<p>它内设了多达百篇不同难度等级的文章，会根据用户的英语水平为用户提供相应难度的文章进行练习；同时，每一个用户还享有独立的生词本，用户可以将在阅读文章过程中遇到的生词收集起来，在复习中进行针对性记忆。</p>
+<p>本次实验通过分析项目在模块、类两个层次上的依赖关系，使用工具对依赖关系图形化，理解不同软件架构的优缺点。</p>
+</section>
+<section id="materials-and-methods">
+<h2>Materials and Methods<a class="headerlink" href="#materials-and-methods" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/pydeps/">pydeps-Python module dependency visualization</a>: 可视化项目模块间依赖关系</p></li>
+<li><p>Graphviz: 图形化.dot文件</p></li>
+<li><p>Mermaid: 生成类/函数关系图</p></li>
+</ul>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<section id="beginningofspring">
+<h3>BeginningOfSpring<a class="headerlink" href="#beginningofspring" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>模块</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">digraph</span> <span class="n">G</span> <span class="p">{</span>
+    <span class="n">concentrate</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+
+    <span class="n">rankdir</span> <span class="o">=</span> <span class="n">TB</span><span class="p">;</span>
+    <span class="n">node</span> <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">,</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span><span class="n">fontname</span><span class="o">=</span><span class="n">Helvetica</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">];</span>
+
+    <span class="n">Yaml</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#c24747&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">];</span>
+    <span class="n">app_Article</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#80b34c&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app.Article&quot;</span><span class="p">];</span>
+    <span class="n">app_Yaml</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#80b34c&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app.Yaml&quot;</span><span class="p">];</span>
+    <span class="n">app_account_service</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#80b34c&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app\.</span><span class="se">\n</span><span class="s2">account_service&quot;</span><span class="p">];</span>
+    <span class="n">app_main</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#80b34c&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app.main&quot;</span><span class="p">];</span>
+    <span class="n">app_user_service</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#7aac49&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app\.</span><span class="se">\n</span><span class="s2">user_service&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#26d9d9&quot;</span><span class="p">];</span>
+    <span class="n">yaml</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#8553b6&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">];</span>
+    <span class="n">Yaml</span> <span class="o">-&gt;</span> <span class="n">app_main</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#c24747&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">Yaml</span> <span class="o">-&gt;</span> <span class="n">app_user_service</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#c24747&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="o">-&gt;</span> <span class="n">app_Article</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#26d9d9&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="o">-&gt;</span> <span class="n">app_account_service</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#26d9d9&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="o">-&gt;</span> <span class="n">app_user_service</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#26d9d9&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">yaml</span> <span class="o">-&gt;</span> <span class="n">app_Yaml</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#8553b6&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><img alt="1" src="_images/BeginningOfSpring-module.svg" /></p>
+<ul class="simple">
+<li><p>类/函数</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
+    <span class="n">check_username_availability</span><span class="o">--&gt;</span><span class="n">signup</span>
+    <span class="n">add_user</span><span class="o">--&gt;</span><span class="n">signup</span>
+    <span class="n">get_expiry_date</span><span class="o">--&gt;</span><span class="n">signup</span>
+    <span class="n">verify_user</span><span class="o">--&gt;</span><span class="n">signup</span>
+    <span class="n">get_expiry_date</span><span class="o">--&gt;</span><span class="n">login</span>
+    <span class="n">verify_user</span><span class="o">--&gt;</span><span class="n">login</span>
+    
+
+    <span class="n">logout</span>
+    <span class="n">change_password</span><span class="o">--&gt;</span><span class="n">reset</span>
+    <span class="n">total_number_of_essays</span>
+    <span class="n">get_article_title</span>
+    <span class="n">get_article_body</span>
+
+    <span class="n">load_freq_history</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">get_difficulty_level</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">user_difficulty_level</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">text_difficulty_level</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">get_article_title</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">get_article_body</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">get_question_part</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+    <span class="n">get_answer_part</span><span class="o">--&gt;</span><span class="n">get_today_article</span>
+
+    <span class="n">load_record</span><span class="o">--&gt;</span><span class="n">load_freq_history</span>
+    <span class="n">within_range</span>
+    <span class="n">get_question_part</span>
+    <span class="n">get_answer_part</span>
+    <span class="n">load_record</span>
+    <span class="n">difficulty_level_from_frequency</span>
+    <span class="n">difficulty_level_from_frequency</span><span class="o">--&gt;</span><span class="n">get_difficulty_level</span>
+    <span class="n">revert_dict</span><span class="o">--&gt;</span><span class="n">user_difficulty_level</span>
+    <span class="n">sort_in_ascending_order</span><span class="o">--&gt;</span><span class="n">user_difficulty_level</span>
+    <span class="n">remove_punctuation</span><span class="o">--&gt;</span><span class="n">text_difficulty_level</span>
+    <span class="n">freq</span><span class="o">--&gt;</span><span class="n">text_difficulty_level</span>
+
+    <span class="n">md5</span><span class="o">--&gt;</span><span class="n">verify_user</span>
+    <span class="n">instructions_with_parameters</span><span class="o">--&gt;</span><span class="n">verify_user</span>
+    <span class="n">md5</span><span class="o">--&gt;</span><span class="n">add_user</span>
+    <span class="n">check_username_availability</span>
+    <span class="n">verify_user</span><span class="o">--&gt;</span><span class="n">change_password</span>
+    <span class="n">md5</span><span class="o">--&gt;</span><span class="n">change_password</span>
+    <span class="n">get_expiry_date</span>
+    <span class="n">md5</span>
+
+    <span class="n">get_random_image</span>
+    <span class="n">get_random_ads</span>
+    <span class="n">appears_in_test</span>
+    <span class="n">load_freq_history</span><span class="o">--&gt;</span><span class="n">mark_word</span>
+    <span class="n">dict2lst</span><span class="o">--&gt;</span><span class="n">mark_word</span>
+    <span class="n">merge_frequency</span><span class="o">--&gt;</span><span class="n">mark_word</span>
+    <span class="n">save_frequency_to_pickle</span><span class="o">--&gt;</span><span class="n">mark_word</span>
+    <span class="n">get_freq</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">load_freq_history</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">dict2lst</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">merge_frequency</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">save_frequency_to_pickle</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">get_random_ads</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">total_number_of_essays</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">load_freq_history</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    <span class="n">sort_in_descending_order</span><span class="o">--&gt;</span><span class="n">mainpage</span>
+    
+    <span class="n">lst2dict</span>
+    <span class="n">dict2lst</span>
+    <span class="n">lst2dict</span><span class="o">--&gt;</span><span class="n">merge_frequency</span>
+    <span class="n">load_record</span>
+    <span class="n">save_frequency_to_pickle</span>
+    <span class="n">unfamiliar</span>
+    <span class="n">familiar</span>
+
+    <span class="n">lst2dict</span>
+    <span class="n">deleteRecord</span>
+    <span class="n">dict2lst</span>
+    <span class="n">lst2dict</span><span class="o">--&gt;</span><span class="n">merge_frequency</span>
+    <span class="n">load_record</span>
+    <span class="n">save_frequency_to_pickle</span>
+
+    <span class="n">user_reset</span>
+    <span class="n">unfamiliar</span><span class="o">--&gt;</span><span class="n">unfamiliar</span>
+    <span class="n">familiar</span><span class="o">--&gt;</span><span class="n">familiar</span>
+    <span class="n">deleteRecord</span><span class="o">--&gt;</span><span class="n">deleteword</span>
+    <span class="n">get_freq</span><span class="o">--&gt;</span><span class="n">userpage</span>
+    <span class="n">load_freq_history</span><span class="o">--&gt;</span><span class="n">userpage</span>
+    <span class="n">dict2lst</span><span class="o">--&gt;</span><span class="n">userpage</span>
+    <span class="n">sort_in_descending_order</span><span class="o">--&gt;</span><span class="n">userpage</span>
+    <span class="n">get_today_article</span><span class="o">--&gt;</span><span class="n">userpage</span>
+    <span class="n">load_freq_history</span><span class="o">--&gt;</span><span class="n">user_mark_word</span>
+    <span class="n">dict2lst</span><span class="o">--&gt;</span><span class="n">user_mark_word</span>
+    <span class="n">merge_frequency</span><span class="o">--&gt;</span><span class="n">user_mark_word</span>
+    <span class="n">save_frequency_to_pickle</span><span class="o">--&gt;</span><span class="n">user_mark_word</span>
+    <span class="n">get_time</span>
+    <span class="n">get_flashed_messages</span><span class="o">--&gt;</span><span class="n">get_flashed_messages_if_any</span>
+
+    <span class="n">freq</span>
+    <span class="n">youdao_link</span>
+    <span class="n">file2str</span>
+    <span class="n">remove_punctuation</span>
+    <span class="n">sort_in_descending_order</span>
+    <span class="n">sort_in_ascending_order</span>
+    <span class="n">make_html_page</span>
+</pre></div>
+</div>
+<p><img alt="2" src="_images/BeginningOfSpring-class.png" /></p>
+</section>
+<section id="colddew">
+<h3>ColdDew<a class="headerlink" href="#colddew" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>模块</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">digraph</span> <span class="n">G</span> <span class="p">{</span>
+    <span class="n">concentrate</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+
+    <span class="n">rankdir</span> <span class="o">=</span> <span class="n">TB</span><span class="p">;</span>
+    <span class="n">node</span> <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">,</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span><span class="n">fontname</span><span class="o">=</span><span class="n">Helvetica</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">];</span>
+
+    <span class="n">app_main</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#b34c4c&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app.main&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#40bfc0&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="o">-&gt;</span> <span class="n">app_main</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#40bfc0&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><img alt="1" src="_images/ColdDew-module.svg" /></p>
+<ul class="simple">
+<li><p>类/函数</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classDiagram</span>
+    <span class="n">UseSqlite</span> <span class="o">&lt;|--</span> <span class="n">main</span>
+    <span class="n">WordFreq</span><span class="o">&lt;|--</span> <span class="n">main</span>
+    <span class="n">difficulty</span><span class="o">&lt;|--</span> <span class="n">main</span>
+    <span class="n">wordfreqCMD</span> <span class="o">&lt;|--</span> <span class="n">WordFreq</span>
+    <span class="n">wordfreqCMD</span> <span class="o">&lt;|--</span> <span class="n">difficulty</span>
+    <span class="k">class</span> <span class="nc">UseSqlite</span><span class="p">{</span>
+      <span class="o">+</span> <span class="n">query</span>
+      <span class="o">+</span><span class="n">instructions</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">difficulty</span><span class="p">{</span>
+       <span class="o">+</span> <span class="n">pickle_fname</span>
+       <span class="o">+</span> <span class="n">word</span>
+       <span class="o">+</span> <span class="n">s</span>
+       <span class="o">+</span> <span class="n">d</span>
+       <span class="o">+</span> <span class="n">d1</span>
+       <span class="o">+</span> <span class="n">d2</span>
+       <span class="o">+</span> <span class="n">d3</span>
+       <span class="o">+</span> <span class="n">d_user</span>
+      <span class="o">+</span><span class="n">load_record</span><span class="p">(</span><span class="n">pickle_fname</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">difficulty_level_from_frequency</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">get_difficulty_level</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span><span class="n">d2</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">revertdict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">user_difficulty_level</span><span class="p">(</span><span class="n">d_user</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">text_difficulty_level</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">WordFreq</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">s</span>
+      <span class="o">+</span><span class="n">get_freq</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">wordfreqCMD</span><span class="p">{</span>
+       <span class="o">+</span><span class="n">fruit</span>
+       <span class="o">+</span><span class="n">s</span>
+       <span class="o">+</span><span class="n">fname</span>
+       <span class="o">+</span><span class="n">lst</span>
+       <span class="o">+</span><span class="n">freq</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">youdao_link</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">file2str</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">remove_punctuation</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+      <span class="o">+</span> <span class="n">sort_in_descending_order</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+     <span class="o">+</span>  <span class="n">sort_in_ascending_order</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+      <span class="o">+</span> <span class="n">make_html_page</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">pickle_idea</span><span class="p">{</span>
+        <span class="o">+</span><span class="n">lst</span>
+        <span class="o">+</span><span class="n">d</span>
+        <span class="o">+</span><span class="n">lst1</span>
+        <span class="o">+</span><span class="n">lst2</span>
+        <span class="o">+</span><span class="n">pickle_fname</span>
+        <span class="o">+</span><span class="n">path</span>
+        <span class="o">+</span><span class="n">word</span>
+        <span class="o">+</span><span class="n">lst2dict</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">dict2lst</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">merge_frequency</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">load_record</span><span class="p">(</span><span class="n">pickle_fname</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">save_frequency_to_pickle</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">pickle_fname</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">unfamiliar</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">word</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">familiar</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">word</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">pickle_idea2</span><span class="p">{</span>
+        <span class="o">+</span><span class="n">lst</span>
+        <span class="o">+</span><span class="n">d</span>
+        <span class="o">+</span><span class="n">lst1</span>
+        <span class="o">+</span><span class="n">lst2</span>
+        <span class="o">+</span><span class="n">pickle_fname</span>
+        <span class="o">+</span><span class="n">path</span>
+        <span class="o">+</span><span class="n">word</span>
+        <span class="o">+</span><span class="n">lst2dict</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">deleteRecord</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">word</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">dict2lst</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">merge_frequency</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">load_record</span><span class="p">(</span><span class="n">pickle_fname</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">save_frequency_to_pickle</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">pickle_fname</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">main</span><span class="p">{</span>
+        <span class="o">+</span><span class="n">path</span>
+        <span class="o">+</span><span class="n">username</span>
+        <span class="o">+</span><span class="n">password</span>
+        <span class="o">+</span><span class="n">x</span>
+        <span class="o">+</span><span class="n">y</span>
+        <span class="o">+</span><span class="n">r</span>
+        <span class="o">+</span><span class="n">s</span>
+        <span class="o">+</span><span class="n">user_word_list</span>
+        <span class="o">+</span><span class="n">articleID</span>
+        <span class="o">+</span><span class="n">word</span>
+        <span class="o">+</span><span class="n">d</span>
+        <span class="o">+</span><span class="n">_init_</span><span class="p">()</span>
+        <span class="o">+</span><span class="n">get_random_image</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">get_random_ads</span><span class="p">()</span>
+        <span class="o">+</span><span class="n">total_number_of_essays</span><span class="p">()</span>
+        <span class="o">+</span><span class="n">load_freq_history</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">verify_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">add_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">check_username_availability</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">get_expiry_date</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">within_range</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">get_article_title</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">get_today_article</span><span class="p">(</span><span class="n">user_word_list</span><span class="p">,</span> <span class="n">articleID</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">appears_in_test</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">get_time</span><span class="p">()</span>
+        <span class="o">+</span><span class="n">get_question_part</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="o">+</span><span class="n">get_answer_part</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p><img alt="1" src="_images/ColdDew-class.png" /></p>
+</section>
+<section id="chap4">
+<h3>Chap4<a class="headerlink" href="#chap4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>模块</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">digraph</span> <span class="n">G</span> <span class="p">{</span>
+    <span class="n">concentrate</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+
+    <span class="n">rankdir</span> <span class="o">=</span> <span class="n">TB</span><span class="p">;</span>
+    <span class="n">node</span> <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">,</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span><span class="n">fontname</span><span class="o">=</span><span class="n">Helvetica</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">];</span>
+
+    <span class="n">app_flask_app</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#a44646&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app.flask_app&quot;</span><span class="p">];</span>
+    <span class="n">app_orm</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#a44646&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;app.orm&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#40c040&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#1919e6&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy_orm</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#2323c8&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;sqlalchemy.orm&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy_orm_mapper</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#3d3db8&quot;</span><span class="p">,</span><span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;sqlalchemy\.</span><span class="se">\n</span><span class="s2">orm\.</span><span class="se">\n</span><span class="s2">mapper&quot;</span><span class="p">];</span>
+    <span class="n">flask</span> <span class="o">-&gt;</span> <span class="n">app_flask_app</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#40c040&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy</span> <span class="o">-&gt;</span> <span class="n">app_flask_app</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#1919e6&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy</span> <span class="o">-&gt;</span> <span class="n">app_orm</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#1919e6&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy_orm</span> <span class="o">-&gt;</span> <span class="n">app_flask_app</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#2323c8&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy_orm</span> <span class="o">-&gt;</span> <span class="n">app_orm</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#2323c8&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy_orm_mapper</span> <span class="o">-&gt;</span> <span class="n">app_orm</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#3d3db8&quot;</span><span class="p">,</span><span class="n">minlen</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+    <span class="n">sqlalchemy_orm_mapper</span> <span class="o">-&gt;</span> <span class="n">sqlalchemy_orm</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#3d3db8&quot;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><img alt="1" src="_images/Chap4-module.svg" /></p>
+<ul class="simple">
+<li><p>类/函数</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classDiagram</span>
+    <span class="n">AbstractRepository</span> <span class="o">&lt;|--</span> <span class="n">SqlAlchemyRepository</span>
+    <span class="n">OrderLine</span> <span class="o">&lt;..</span> <span class="n">OutOfStock</span>
+    <span class="n">Batch</span> <span class="o">&lt;..</span> <span class="n">OutOfStock</span>
+    <span class="n">OrderLine</span> <span class="o">&lt;..</span> <span class="n">Batch</span>
+    <span class="n">OrderLine</span> <span class="o">&lt;..</span> <span class="n">MetaData</span>
+    <span class="n">Batch</span> <span class="o">&lt;..</span> <span class="n">MetaData</span>
+    <span class="n">Batch</span> <span class="o">&lt;..</span> <span class="n">AbstractRepository</span>
+    <span class="n">OrderLine</span> <span class="o">&lt;..</span> <span class="n">InvalidSku</span>
+    <span class="n">Batch</span> <span class="o">&lt;..</span> <span class="n">InvalidSku</span>
+    <span class="n">OrderLine</span> <span class="o">&lt;..</span> <span class="n">Flask</span>
+    <span class="n">OutOfStock</span> <span class="o">&lt;..</span> <span class="n">Flask</span>
+    <span class="n">InvalidSku</span> <span class="o">&lt;..</span> <span class="n">Flask</span>
+    <span class="n">SqlAlchemyRepository</span> <span class="o">&lt;..</span> <span class="n">Flask</span>
+    <span class="n">MetaData</span> <span class="o">&lt;..</span> <span class="n">Flask</span>
+
+    <span class="k">class</span> <span class="nc">AbstractRepository</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">session</span>
+      <span class="o">+</span><span class="n">batch</span>
+      <span class="o">+</span><span class="n">reference</span>
+      <span class="o">+</span><span class="n">add</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">get</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">SqlAlchemyRepository</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">session</span>
+      <span class="o">+</span><span class="n">batch</span>
+      <span class="o">+</span><span class="n">reference</span>
+      <span class="n">_init_</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">add</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">get</span><span class="p">()</span>
+      <span class="o">+</span><span class="nb">list</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">OutOfStock</span><span class="p">{</span>
+      <span class="o">+</span><span class="k">pass</span>
+      <span class="o">+</span><span class="n">allocate</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">OrderLine</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">Str</span> <span class="n">orderid</span>
+      <span class="o">+</span><span class="n">Str</span> <span class="n">sku</span>
+      <span class="o">+</span><span class="nb">int</span> <span class="n">qty</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Batch</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">Str</span> <span class="n">ref</span>
+      <span class="o">+</span><span class="n">Str</span> <span class="n">sku</span>
+      <span class="o">+</span><span class="nb">int</span> <span class="n">qty</span>
+      <span class="n">_init_</span><span class="p">()</span>
+      <span class="o">+</span><span class="nb">repr</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">eq</span><span class="p">()</span>
+      <span class="o">+</span><span class="nb">hash</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">gt</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">allocate</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">deallocate</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">allocated_quantity</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">available_quantity</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">can_allocate</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">MetaData</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">order_lines</span>
+      <span class="o">+</span><span class="n">batches</span>
+      <span class="o">+</span><span class="n">allocations</span>
+      <span class="o">+</span><span class="n">start_mappers</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">InvalidSku</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">is_valid_sku</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">allocate</span><span class="p">()</span>
+    <span class="p">}</span>
+     <span class="k">class</span> <span class="nc">Flask</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">session</span>
+      <span class="o">+</span><span class="n">repo</span>
+      <span class="o">+</span><span class="n">line</span>
+      <span class="o">+</span><span class="n">allocate_endpoint</span><span class="p">()</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p><img alt="1" src="_images/Chap4-class.png" /></p>
+</section>
+<section id="comparing-beginningofspring-with-colddew">
+<h3>Comparing BeginningOfSpring with ColdDew<a class="headerlink" href="#comparing-beginningofspring-with-colddew" title="Permalink to this headline">¶</a></h3>
+<p>|                                                              | ColdDew | BeginningOfSpring |
+| ———————————————————— | ——- | —————– |
+| Lines of code in main.py (excluding blank lines and comments) | 499     | 115               |
+| Number of HTML files in folder templates                     | 2       | 9                 |
+| Has a service layer? Answer Yes or No.                       | No      | Yes               |
+| Front-end and back-end coupling. Answer Strong or Weak.      | Strong  | Weak              |
+| Number of module-level dependencies                          | 1       | 6                 |</p>
+</section>
+</section>
+<section id="discussions">
+<h2>Discussions<a class="headerlink" href="#discussions" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>From a scale 1 (worst) to scale 5 (best), how would you evaluate the architectural health of each version of EnglishPal? Which version of EnglishPal is easier to understand and maintain? Explainin no more than 3 sentences.</p></li>
+<li><p>Pros and cons of the current architecture of EnglishPal, BeginningOfSpring.</p></li>
+</ul>
+</div></blockquote>
+<section id="id1">
+<h3>1.架构健壮性评估<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ColdDew: 1</p></li>
+<li><p>BeginningOfSpring: 4</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>2.BeginningOfSpring可维护性和可读性高<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ColdDew的main.py太臃肿了，难以阅读和理解</p></li>
+<li><p>ColdDew后端代码和前端HTML混合在一起，不利于维护</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>3.BeginningOfSpring的架构的优缺点<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<section id="id4">
+<h4>优点<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>前后端分离，项目具有良好的可读性和可维护性</p></li>
+<li><p>项目有一个基本的层次结构，便于扩展</p></li>
+</ul>
+</section>
+<section id="id5">
+<h4>缺点<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>虽然分离了前后端，但是后端代码中依然存在HTML</p></li>
+<li><p>项目注释不够完善，模块的定义模糊</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">englishpal</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, union78.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/SA-lab1.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
