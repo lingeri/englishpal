@@ -7,3 +7,4 @@ Contents
 .. toctree::
 
    SA-lab1
+   SA-lab2

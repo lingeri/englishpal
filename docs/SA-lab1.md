@@ -1,11 +1,13 @@
 # SA Lab1  Dependency Analysis and Dependency Graphs
 > 201931990124 刘长优
-> 
+>
 > 201931990122 黄凯峰
-> 
+>
 > 201931990130 王晨航
-> 
+>
 > 201931990127 骆纪元
+>
+> [Read the Lab1](https://englishpal-78.readthedocs.io/en/latest/SA-lab1.html)
 
 ## Abstract
 分析三个项目各自的内部依赖，利用工具绘制模块、类/函数依赖关系图，通过比较，加深对软件体系结构的理解。
