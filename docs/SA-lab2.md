@@ -26,5 +26,6 @@ In this lab, we are going to use blueprints to refactor Photo String and add a f
 
 ## Results
 
-- [Source code](PhotoString.zip)
+- [Source code](_static/PhotoString.zip)
 - [3-minute demo video]()
+- [Read the doc: lab2](https://englishpal-78.readthedocs.io/en/latest/SA-lab2.html)
