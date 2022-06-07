@@ -47,6 +47,8 @@ In this lab, we are going to use a non-database strategy while implementing the 
 
 - [10-second demo video for the above integration test](https://www.bilibili.com/video/BV1kv4y137Kk?spm_id_from=333.999.list.card_archive.click)
 
+- [Read the doc](https://englishpal-78.readthedocs.io/en/latest/SA-lab3.html)
+
 ## Discussions
 
 - What is the difference between the textbook test services.py and new test services.py?
